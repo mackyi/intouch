@@ -98,13 +98,13 @@ module.exports = function(app){
 		})
 	})
 
-	a.delete('/api/contacts/:id', function(req, res){
+	app.delete('/api/contacts/:id', function(req, res){
 		db.deleteContact(req.params.id, function(err, contact){
 			res.json(contact);
 		})
 	})
 
-	a.delete('/api/users/:id', function(req, res){
+	app.delete('/api/users/:id', function(req, res){
 		db.deleteUser(req.params.id, function(err, user){
 			res.json(user);
 		})

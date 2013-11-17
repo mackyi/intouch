@@ -64,7 +64,7 @@ module.exports = {
 
   deleteUser: function(id, cb){
     User.remove({id: id}, cb)
-  }
+  },
   // disconnect from database
   closeDB: function() {
     mongoose.disconnect();
