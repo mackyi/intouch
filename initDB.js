@@ -167,6 +167,7 @@ module.exports = function(){
 		  	var rand = Math.floor(Math.random()*tags.length)
 		  	var status = statuses[Math.floor(Math.random()*3)]
 		  	return {
+		  		userId: user._id,
 		  		firstName: firstNames[num],
 		  		lastName: lastNames[num],
 		  		phoneNumber: phoneNumbers[num],
