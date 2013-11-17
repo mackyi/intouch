@@ -6,8 +6,9 @@ var db = require('./accessDB'),
   LinkedInUserToken = 'bf4cedd2-f26b-4f50-b193-f9f6800dc6ca',
 LinkedInUserSecret = '5358d2c2-84cd-4394-930e-3e44cd21448e',
   linkedin_client = require('linkedin-js')(LinkedInAPIKey, LinkedInSecret, 'http://localhost:3000/auth'),
-
+  restler = require('restler');
   SendGridAPI = require('./sendgrid');
+
 
 module.exports = function(app){
 	app.get('/', function(req, res) {
@@ -143,6 +144,32 @@ module.exports = function(app){
 		db.deleteUser(req.params.id, function(err, user){
 			res.json(user);
 		})
+	})
+
+	app.get('/api/printContacts', function(req, res){
+		var userId = req.query.userId
+		db.getContacts(function(err, contacts){
+			contact = contacts[0]
+			restler.post('https://api.lob.com/v1/postcards', {
+				username: 'test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc',
+				data: {
+					to: {
+						name: contacts[0].firstName + " " +contacts[0].lastName,
+						email: contacts[0].email
+					},
+					from: {
+						name: 'Mack Yi',
+						email: 'themackyi@gmail.com'
+					},
+					front: 'https://www.lob.com/postcardfront.pdf',
+					back: 'https://www.lob.com/postcardback.pdf'
+				}
+			}).on('complete', function(data, response){
+				console.log(data);
+				console.log(response);
+			})
+		})
+	
 	})
 	// app.get('/auth', function(req,res){
 	// 	linkedin_client.getAccessToken(req, res, function (error, token) {
