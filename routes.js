@@ -20,7 +20,7 @@ module.exports = function(app){
 
 	app.get('/api/contacts', function(req, res){
 		db.getContacts(function(err, contacts){
-			res.json(contacts);
+			res.json({response: contacts});
 		})
 	})
 
@@ -54,21 +54,21 @@ module.exports = function(app){
 	app.post('/api/contacts', function(req, res){
 		console.log(req.body);
 		contact = req.body.contact
-		dbContact = {
-			userId: contact.userId,
-			contactInfo: {
-				firstName: contact.firstName,
-				lastName: contact.lastName,
-				company: contact.company,
-				phoneNumbers: [contact.phoneNumber],
-				emails: [contact.email]
-			},
-			tags: contact.tags.split(" "),
-			notes: contact.notes,
-			status: contact.status
-		}
+		// dbContact = {
+		// 	userId: contact.userId,
+		// 	contactInfo: {
+		// 		firstName: contact.firstName,
+		// 		lastName: contact.lastName,
+		// 		company: contact.company,
+		// 		phoneNumbers: [contact.phoneNumber],
+		// 		emails: [contact.email]
+		// 	},
+		// 	tags: contact.tags.split(" "),
+		// 	notes: contact.notes,
+		// 	status: contact.status
+		// }
 
-		db.createContact(dbContact, function(err, contact){
+		db.createContact(contact, function(err, contact){
 			if(err) console.log(err);
 			res.json(contact)
 		})
