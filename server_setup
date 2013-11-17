@@ -1,0 +1,28 @@
+setting up the server
+
+nodejs
+
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:chris-lea/node.js  
+sudo apt-get update  
+sudo apt-get install nodejs
+
+
+mongodb
+sudo apt-get install mongodb
+
+sudo service mongodb start
+
+
+elasticsearch
+
+
+sudo apt-get install openjdk-7-jre-headless -y
+wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb
+sudo dpkg -i elasticsearch-0.90.7.deb
+sudo service elasticsearch start
+
+install command line tools for azure...
+
+
+sudo sfw allow 3000
