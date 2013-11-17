@@ -125,6 +125,8 @@ module.exports = function(){
 
 			"I didn't know it was impossible when I did it."
 		]
+
+		var statuses = [StatusType.INBOX, StatusType.LATER, StatusType.ARCHIVE]
 		var sampleUser = {
 		  _id: mongoose.Types.ObjectId("111111111111"),
 		  username: "hackduke",
@@ -163,6 +165,7 @@ module.exports = function(){
 
 		  var generateContact = function(num){
 		  	var rand = Math.floor(Math.random()*tags.length)
+		  	var status = statuses[Math.floor(Math.random()*3)]
 		  	return {
 		  		firstName: firstNames[num],
 		  		lastName: lastNames[num],
@@ -170,7 +173,8 @@ module.exports = function(){
 		  		email: emails[num],
 		  		tags: [tags[rand], tags[(rand+4+i)%tags.length]],
 		  		notes: notes[num],
-		  		picUrl: pics[num]
+		  		picUrl: pics[num],
+		  		status: statuses[num%3]
 		  	}
 		  }
 		  var sampleContact = {
