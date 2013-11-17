@@ -9,7 +9,8 @@
     "elasticsearchclient":"*",
     "underscore": "1.x",
     "linkedin-js": "0.1.x",
-    "oauth": "*"
+    "oauth": "*",
+    "sendgrid":"*"
   },
   "engines": {
     "node": "0.10.x",

@@ -5,8 +5,9 @@ var db = require('./accessDB'),
   LinkedInCallback = 'http://localhost:3000/auth',
   LinkedInUserToken = 'bf4cedd2-f26b-4f50-b193-f9f6800dc6ca',
 LinkedInUserSecret = '5358d2c2-84cd-4394-930e-3e44cd21448e',
-  linkedin_client = require('linkedin-js')(LinkedInAPIKey, LinkedInSecret, 'http://localhost:3000/auth');
+  linkedin_client = require('linkedin-js')(LinkedInAPIKey, LinkedInSecret, 'http://localhost:3000/auth'),
 
+  SendGridAPI = require('./sendgrid');
 
 module.exports = function(app){
 	app.get('/', function(req, res) {
@@ -53,7 +54,21 @@ module.exports = function(app){
 	app.post('/api/contacts', function(req, res){
 		console.log(req.body);
 		contact = req.body.contact
-		db.createContact(contact, function(err, contact){
+		dbContact = {
+			userId: contact.userId,
+			contactInfo: {
+				firstName: contact.firstName,
+				lastName: contact.lastName,
+				company: contact.company,
+				phoneNumbers: [contact.phoneNumber],
+				emails: [contact.email]
+			},
+			tags: contact.tags.split(" "),
+			notes: contact.notes,
+			status: contact.status
+		}
+
+		db.createContact(dbContact, function(err, contact){
 			if(err) console.log(err);
 			res.json(contact)
 		})
@@ -104,6 +119,18 @@ module.exports = function(app){
 			if(err) console.log(err)
 			console.log(stats)
 			res.json(users);
+		})
+	})
+
+	app.get('/api/sendmail', function(req, res){
+		var to = req.query.to;
+		var from = req.query.from;
+		var subject = req.query.subject;
+		var text = req.query.text;
+		SendGridAPI.sendEmail(to, from, subject, text, function(err, data){
+			if(err) console.log(err)
+			console.log(data);
+			res.json(data);
 		})
 	})
 	app.delete('/api/contacts/:id', function(req, res){

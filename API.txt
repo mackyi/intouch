@@ -1,0 +1,68 @@
+API
+
+base uri: http://dukeintouch.cloudapp.net:3000/
+
+GET /api/users
+	response: [{user}]
+GET /api/contacts
+	response: [{contact}]
+POST /api/users					// create user
+	request body: 
+		user: json
+	response:
+		user: json
+POST /api/users/update
+	request body: 
+		user: json
+	response:
+		user: json
+
+POST /api/contacts
+	request body: 
+		contact: json
+	response:
+		contact: json
+
+POST /api/contacts/update
+	request body: 
+		contact: json
+	response:
+		contact: json
+
+GET /api/contacts/search
+	query parameters
+		term: String
+		userId: mongoId
+	response
+		[{contact}]
+GET /api/contacts/search/tag
+	query parameters
+		tag: String
+		userId: mongoId
+	response
+		[{contact}]
+
+GET /api/contacts/search/status
+	query parameters	
+		status: [inbox, later, or archive]
+		userId: mongoId
+	response
+		[{contact}]
+
+GET /api/users/naer
+	query parameters
+		userId
+	response
+		[{user}]
+
+DELETE /api/contacts/:id
+	query parametesr
+		id: mongoId to be deleted
+	response
+		contact
+
+DELETE /api/users/:id
+	query parameter
+		id: mongoId to be deleted
+	response
+		user
