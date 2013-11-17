@@ -58,6 +58,13 @@ module.exports = {
     User.update({id: user._id}, contact, cb);
   },
 
+  deleteContact: function(id, cb){
+    Contact.remove({id: id}, cb);
+  },
+
+  deleteUser: function(id, cb){
+    User.remove({id: id}, cb)
+  }
   // disconnect from database
   closeDB: function() {
     mongoose.disconnect();
