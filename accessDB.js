@@ -70,7 +70,7 @@ module.exports = {
   findUsersNear: function(id, cb){
     console.log(id)
     User.findOne({_id: id}, function(err, user){
-      if(err) cb(err);
+      if(err) return cb(err);
       var point = { type : "Point", coordinates : user.location };
       User.geoNear(user.location, {spherical : true, 
         maxDistance: 1/EARTH_RADIUS_MILES}, cb);
