@@ -24,10 +24,27 @@ module.exports = function(){
 
 
 		var sampleUser = {
+		  _id: mongoose.Types.ObjectId("111111111111"),
 		  username: "hackduke",
 		  password: "test",
-		  contactInfo: sampleContactInfo
+		  contactInfo: sampleContactInfo,
+		  location: [70, 69.99]
 		}
+		
+		for(var i=0; i<10; i++){
+			var sampleUser2 = {
+				username: "nearby"+i,
+				password: "abc",
+				contactInfo: sampleContactInfo,
+				location: [i*10, i*10]
+			}
+			User.create(sampleUser2, function(err, user){
+				if(err) console.log("error saving sample user!" + err);
+			  	console.log('saved sample user' + JSON.stringify(user));
+			})
+		}
+
+
 
 		User.create(sampleUser, function(err, user){
 		  if(err) console.log("error saving sample user!" + err);

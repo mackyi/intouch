@@ -1,8 +1,9 @@
 // Module dependencies
 var mongoose = require('mongoose'),
     Contact = require('./models/contact').Contact,
-    User    = require('./models/user').User;
+    User    = require('./models/user').User,
 
+    EARTH_RADIUS_MILES = 3963.1676;
 // connect to database
 module.exports = {
   startup: function(dbToUse) {
@@ -51,20 +52,33 @@ module.exports = {
   },
 
   updateContact: function(contact, cb){
-    Contact.update({id: contact._id}, contact, cb);
+    Contact.update({_id: contact._id}, contact, cb);
   },
 
   updateUser: function(user, cb){
-    User.update({id: user._id}, contact, cb);
+    User.update({_id: user._id}, contact, cb);
   },
 
   deleteContact: function(id, cb){
-    Contact.remove({id: id}, cb);
+    Contact.remove({_id: id}, cb);
   },
 
   deleteUser: function(id, cb){
-    User.remove({id: id}, cb)
+    User.remove({_id: id}, cb)
   },
+
+  findUsersNear: function(id, cb){
+    console.log(id)
+    User.findOne({_id: id}, function(err, user){
+      if(err) cb(err);
+      var point = { type : "Point", coordinates : user.location };
+      User.geoNear(user.location, {spherical : true, 
+        maxDistance: 1/EARTH_RADIUS_MILES}, cb);
+    })
+
+  },
+
+
   // disconnect from database
   closeDB: function() {
     mongoose.disconnect();

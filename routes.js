@@ -98,6 +98,14 @@ module.exports = function(app){
 		})
 	})
 
+	app.get('/api/users/near', function(req, res){
+		var userId = req.query.userId;
+		db.findUsersNear(userId, function(err, users, stats){
+			if(err) console.log(err)
+			console.log(stats)
+			res.json(users);
+		})
+	})
 	app.delete('/api/contacts/:id', function(req, res){
 		db.deleteContact(req.params.id, function(err, contact){
 			res.json(contact);
