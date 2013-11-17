@@ -7,7 +7,14 @@ var collection = 'contact';
 
 var contactSchema = new Schema({
 	userId: ObjectId,
-	contactInfo: ContactInfoPartial,
+	//contactInfo: ContactInfoPartial,
+	firstName: String,
+	lastName: String,
+	company: String,
+	phoneNumber: String,
+	email: String,	
+	picUrl: String,
+
 	contactLog: [{
 		date: Date,
 		text: String

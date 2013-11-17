@@ -36,7 +36,8 @@ module.exports = {
 				filtered: {
 					query: {
 						flt: {
-							fields: ['contactLog.text', 'tags', 'notes', 'contactInfo.firstName', 'contactInfo.lastName', 'contactInfo.emails'],
+							//fields: ['contactLog.text', 'tags', 'notes', 'contactInfo.firstName', 'contactInfo.lastName', 'contactInfo.emails'],
+							fields: ['contactLog.text', 'tags', 'notes', 'firstName', 'lastName', 'email'],
 							like_text: term
 						}
 	                },
