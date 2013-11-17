@@ -90,7 +90,7 @@ module.exports = function(app){
 		// console.log(tag);
 		// console.log(userId);
 		elasticSearch.searchContacts(userId, term, function(results){
-			res.json(results);
+			res.json({response: results});
 		})
 	})
 
